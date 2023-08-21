@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 题目接口
@@ -120,11 +121,12 @@ public class QuestionController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         Question question = new Question();
+        // 参数转换
+        Map<String, String> stringMap = question.get(questionUpdateRequest.getTags(), questionUpdateRequest.getJudgeConfig(), questionUpdateRequest.getJudgeCase());
+        question.setTags(stringMap.get("tags"));
+        question.setJudgeConfig(stringMap.get("judgeConfigs"));
+        question.setJudgeCase(stringMap.get("judgeCases"));
         BeanUtils.copyProperties(questionUpdateRequest, question);
-        List<String> tags = questionUpdateRequest.getTags();
-        if (tags != null) {
-            question.setTags(GSON.toJson(tags));
-        }
         // 参数校验
         questionService.validQuestion(question, false);
         long id = questionUpdateRequest.getId();
@@ -137,6 +139,29 @@ public class QuestionController {
 
     /**
      * 根据 id 获取
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/get")
+    public BaseResponse<Question> getQuestionById(long id, HttpServletRequest request) {
+        if (id <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Question question = questionService.getById(id);
+        if (question == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 不是本人或管理员，不能获取所有信息
+        User loginUser = userService.getLoginUser(request);
+        if (!question.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+        }
+        return ResultUtils.success(question);
+    }
+
+    /**
+     * 根据 id 获取（脱敏数据）
      *
      * @param id
      * @return

@@ -4,10 +4,16 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.google.gson.Gson;
+import com.haif.oj.model.dto.question.JudgeCase;
+import com.haif.oj.model.dto.question.JudgeConfig;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 题目
@@ -93,6 +99,26 @@ public class Question implements Serializable {
      */
     private Integer isDelete;
 
+    private final static Gson GSON = new Gson();
+
+    /**
+     * 参数转换
+     */
+    public Map<String, String> get(List<String> tags, JudgeConfig judgeConfigs, List<JudgeCase> judgeCases){
+        Map<String, String> map = new HashMap();
+        if (tags != null) {
+            map.put("tags", GSON.toJson(tags));
+        }
+        if (judgeConfigs != null) {
+            map.put("judgeConfigs", GSON.toJson(judgeConfigs));
+        }
+        if (judgeCases != null) {
+            map.put("judgeCases", GSON.toJson(judgeCases));
+        }
+        return map;
+    }
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
 }
