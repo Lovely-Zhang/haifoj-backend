@@ -8,7 +8,7 @@ public class JudgeInfo {
     /**
      * 程序执行的信息
      */
-    private Long message;
+    private String message;
 
     /**
      * 消耗内存

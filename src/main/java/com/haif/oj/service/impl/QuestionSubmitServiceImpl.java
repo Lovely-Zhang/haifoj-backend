@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haif.oj.common.ErrorCode;
 import com.haif.oj.constant.CommonConstant;
 import com.haif.oj.exception.BusinessException;
+import com.haif.oj.judege.JudgeService;
 import com.haif.oj.mapper.QuestionSubmitMapper;
 import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
 import com.haif.oj.model.dto.questionsubmit.QuestionSubmitAddRequest;
@@ -26,10 +27,12 @@ import com.haif.oj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +48,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private QuestionService questionService;
     @Resource
     private UserService userService;
+    @Resource
+    @Lazy
+    private JudgeService judgeService;
 
     /**
      * 题目提交
@@ -89,7 +95,15 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "");
         }
-        return questionSubmit.getId();
+        Long questionSubmitId = questionSubmit.getId();
+        // 执行判题服务
+        CompletableFuture.runAsync(() -> {
+            judgeService.doJudge(questionSubmitId);
+        });
+        // todo 如果运行成功，则把题目的通过数 +1
+        serviceById.setAcceptedNum(serviceById.getAcceptedNum() + 1);
+        questionService.updateById(serviceById);
+        return questionSubmitId;
     }
 
     /**
