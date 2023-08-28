@@ -4,7 +4,7 @@ import com.haif.oj.judege.codesandbox.model.ExecuteCodeRequest;
 import com.haif.oj.judege.codesandbox.model.ExecuteCodeResponse;
 
 /**
- * 使用策略模式实现代码沙箱的不同调用
+ * 实现代码沙箱的不同调用
  */
 public interface CodeSandbox {
 

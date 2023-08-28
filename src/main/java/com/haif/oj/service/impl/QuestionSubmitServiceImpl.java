@@ -85,16 +85,16 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (judeInfo != null) {
             questionSubmit.setJudgeInfo(JSONUtil.toJsonStr(judeInfo));
         }
-        // 设置初始状态
+        // 添加题目提交信息，设置初始状态
         questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         boolean save = this.save(questionSubmit);
+        if (!save) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "");
+        }
         // todo 如果提交成功，则把 题目的提交数 +1
         Question serviceById = questionService.getById(questionId);
         serviceById.setSubmitNum(serviceById.getSubmitNum() + 1);
         questionService.updateById(serviceById);
-        if (!save) {
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "");
-        }
         Long questionSubmitId = questionSubmit.getId();
         // 执行判题服务
         CompletableFuture.runAsync(() -> {

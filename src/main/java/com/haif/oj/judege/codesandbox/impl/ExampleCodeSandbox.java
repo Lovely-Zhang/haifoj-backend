@@ -7,6 +7,7 @@ import com.haif.oj.model.dto.question.JudgeCase;
 import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
 import com.haif.oj.model.enums.JudgeInfoMessageEnum;
 import com.haif.oj.model.enums.QuestionSubmitStatusEnum;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,8 +15,8 @@ import java.util.stream.Collectors;
 /**
  * 示例代码沙箱（仅为了跑通流程测试专用）
  */
-public class ExampleCodeSandbox implements CodeSandbox
-{
+@Slf4j
+public class ExampleCodeSandbox implements CodeSandbox {
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
         List<JudgeCase> judgeCaseList = executeCodeRequest.getInputList();
@@ -29,6 +30,7 @@ public class ExampleCodeSandbox implements CodeSandbox
         judgeInfo.setMemory(100L);
         judgeInfo.setTime(100L);
         executeCodeResponse.setJudgeInfo(judgeInfo);
+        log.info("测试代码沙箱的实现:{}", "我是测试代码沙箱");
         return executeCodeResponse;
     }
 }

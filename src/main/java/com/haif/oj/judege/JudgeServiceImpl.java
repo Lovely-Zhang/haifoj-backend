@@ -14,6 +14,7 @@ import com.haif.oj.model.dto.question.JudgeCase;
 import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
 import com.haif.oj.model.entity.Question;
 import com.haif.oj.model.entity.QuestionSubmit;
+import com.haif.oj.model.enums.JudgeInfoMessageEnum;
 import com.haif.oj.model.enums.QuestionSubmitStatusEnum;
 import com.haif.oj.service.QuestionService;
 import com.haif.oj.service.QuestionSubmitService;
@@ -57,7 +58,7 @@ public class JudgeServiceImpl implements JudgeService {
         // 3）更改判题（题目提交）的状态为 “判题中”，防止重复执行
         QuestionSubmit questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
-        questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
+        questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.RUNNING.getValue());
         boolean update = questionSubmitService.updateById(questionSubmitUpdate);
         if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "正在判题中");
@@ -91,10 +92,15 @@ public class JudgeServiceImpl implements JudgeService {
         questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
         questionSubmitUpdate.setJudgeInfo(JSONUtil.toJsonStr(judgeInfo));
-        questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
+        // 判断返回的结果信息是否成功，为其改变题目提交状态
+        if (judgeInfo.getMessage().equals(JudgeInfoMessageEnum.ACCEPTED.getValue())) {
+            questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
+        } else {
+            questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.FAILED.getValue());
+        }
         update = questionSubmitService.updateById(questionSubmitUpdate);
         if (!update) {
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR,"题目状态更新错误");
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
         return questionSubmitService.getById(questionSubmitId);
     }

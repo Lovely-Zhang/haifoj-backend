@@ -32,8 +32,8 @@ class CodeSandboxTest {
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
         List<JudgeCase> list = Collections.singletonList(new JudgeCase("1,2", "3, 4"));
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder().code(code).language(language).inputList(list).build();
-        ExecuteCodeResponse executeCodeRespone = codeSandbox.executeCode(executeCodeRequest);
-        Assertions.assertNotNull(executeCodeRespone);
+        ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
+        Assertions.assertNotNull(executeCodeResponse);
     }
 
     /**
@@ -50,8 +50,8 @@ class CodeSandboxTest {
                 .language(language)
                 .inputList(list)
                 .build();
-        ExecuteCodeResponse executeCodeRespone = codeSandbox.executeCode(executeCodeRequest);
-        Assertions.assertNotNull(executeCodeRespone);
+        ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
+        Assertions.assertNotNull(executeCodeResponse);
     }
 
     /**
@@ -70,8 +70,8 @@ class CodeSandboxTest {
                 .language(language)
                 .inputList(list)
                 .build();
-        ExecuteCodeResponse executeCodeRespone = codeSandbox.executeCode(executeCodeRequest);
-        Assertions.assertNotNull(executeCodeRespone);
+        ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
+        Assertions.assertNotNull(executeCodeResponse);
     }
 
     /**
@@ -88,8 +88,8 @@ class CodeSandboxTest {
                 .language(language)
                 .inputList(list)
                 .build();
-        ExecuteCodeResponse executeCodeRespone = codeSandbox.executeCode(executeCodeRequest);
-        Assertions.assertNotNull(executeCodeRespone);
+        ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
+        Assertions.assertNotNull(executeCodeResponse);
     }
 
 
@@ -98,6 +98,7 @@ class CodeSandboxTest {
      */
     @Test
     void executeCodeProxy() {
+        // 静态工厂实现方法
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
         // 增强
         codeSandbox = new CodeSandboxProxy(codeSandbox);
@@ -109,8 +110,8 @@ class CodeSandboxTest {
                 .language(language)
                 .inputList(list)
                 .build();
-        ExecuteCodeResponse executeCodeRespone = codeSandbox.executeCode(executeCodeRequest);
-        Assertions.assertNotNull(executeCodeRespone);
+        ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
+        Assertions.assertNotNull(executeCodeResponse);
     }
 
 }

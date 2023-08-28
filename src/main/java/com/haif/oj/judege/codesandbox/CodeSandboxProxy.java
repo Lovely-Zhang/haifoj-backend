@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 代码沙箱工厂类（根据字符串参数创建指定的代码沙箱实例）
+ * 代码沙箱代理类（使用代理模式来增强接口方法，执行额外的日志输出）
  */
 @Slf4j
 @AllArgsConstructor
