@@ -4,14 +4,13 @@ import com.haif.oj.judege.codesandbox.impl.ExampleCodeSandbox;
 import com.haif.oj.judege.codesandbox.impl.RemoteCodeSanbox;
 import com.haif.oj.judege.codesandbox.model.ExecuteCodeRequest;
 import com.haif.oj.judege.codesandbox.model.ExecuteCodeResponse;
-import com.haif.oj.model.dto.question.JudgeCase;
 import com.haif.oj.model.enums.QuestionSubmitLanguageEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +29,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = new ExampleCodeSandbox();
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<JudgeCase> list = Collections.singletonList(new JudgeCase("1,2", "3, 4"));
+        List<String> list = Arrays.asList("1,2", "3, 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder().code(code).language(language).inputList(list).build();
         ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
         Assertions.assertNotNull(executeCodeResponse);
@@ -44,7 +43,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = new RemoteCodeSanbox();
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<JudgeCase> list = Collections.singletonList(new JudgeCase("1,2", "3, 4"));
+        List<String> list = Arrays.asList("1,2", "3, 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
@@ -64,7 +63,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<JudgeCase> list = Collections.singletonList(new JudgeCase("1,2", "3, 4"));
+        List<String> list = Arrays.asList("1,2", "3, 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
@@ -82,7 +81,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<JudgeCase> list = Collections.singletonList(new JudgeCase("1,2", "3, 4"));
+        List<String> list = Arrays.asList("1,2", "3, 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
@@ -104,7 +103,7 @@ class CodeSandboxTest {
         codeSandbox = new CodeSandboxProxy(codeSandbox);
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<JudgeCase> list = Collections.singletonList(new JudgeCase("1,2", "3, 4"));
+        List<String> list = Arrays.asList("1,2", "3, 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)

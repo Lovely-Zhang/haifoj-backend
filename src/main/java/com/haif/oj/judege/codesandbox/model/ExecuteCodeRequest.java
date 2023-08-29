@@ -1,6 +1,5 @@
 package com.haif.oj.judege.codesandbox.model;
 
-import com.haif.oj.model.dto.question.JudgeCase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,8 +24,8 @@ public class ExecuteCodeRequest {
     private String language;
 
     /**
-     * 组测试 输入输出用例
+     * 组测试 输入用例
      */
-    private List<JudgeCase> inputList;
+    private List<String> inputList;
 
 }

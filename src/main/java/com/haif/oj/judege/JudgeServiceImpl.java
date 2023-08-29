@@ -11,7 +11,7 @@ import com.haif.oj.judege.codesandbox.model.ExecuteCodeResponse;
 import com.haif.oj.judege.strategy.JudgeContetxt;
 import com.haif.oj.judege.strategy.JudgeManager;
 import com.haif.oj.model.dto.question.JudgeCase;
-import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.entity.Question;
 import com.haif.oj.model.entity.QuestionSubmit;
 import com.haif.oj.model.enums.JudgeInfoMessageEnum;
@@ -76,7 +76,7 @@ public class JudgeServiceImpl implements JudgeService {
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
-                .inputList(judgeCaseList)
+                .inputList(inputList)
                 .build();
         ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
         // 5）根据沙箱的执行结果，设置题目的判题状态和信息
