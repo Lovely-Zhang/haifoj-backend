@@ -1,4 +1,4 @@
-package com.haif.oj.model.dto.questionsubmit;
+package com.haif.oj.judege.codesandbox.model;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.haif.oj.judege.strategy;
 
-import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.entity.QuestionSubmit;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package com.haif.oj.model.dto.questionsubmit;
 
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import lombok.Data;
 
 import java.io.Serializable;

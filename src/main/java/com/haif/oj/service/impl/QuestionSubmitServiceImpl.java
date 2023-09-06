@@ -9,7 +9,7 @@ import com.haif.oj.constant.CommonConstant;
 import com.haif.oj.exception.BusinessException;
 import com.haif.oj.judege.JudgeService;
 import com.haif.oj.mapper.QuestionSubmitMapper;
-import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.haif.oj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.haif.oj.model.entity.Question;

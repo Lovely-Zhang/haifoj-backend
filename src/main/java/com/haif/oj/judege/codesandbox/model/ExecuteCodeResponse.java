@@ -1,6 +1,5 @@
 package com.haif.oj.judege.codesandbox.model;
 
-import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

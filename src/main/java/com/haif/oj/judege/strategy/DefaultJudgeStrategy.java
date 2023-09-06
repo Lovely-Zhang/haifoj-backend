@@ -3,7 +3,7 @@ package com.haif.oj.judege.strategy;
 import cn.hutool.json.JSONUtil;
 import com.haif.oj.model.dto.question.JudgeCase;
 import com.haif.oj.model.dto.question.JudgeConfig;
-import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.entity.Question;
 import com.haif.oj.model.enums.JudgeInfoMessageEnum;
 

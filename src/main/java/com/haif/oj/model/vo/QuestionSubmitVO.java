@@ -1,7 +1,7 @@
 package com.haif.oj.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.haif.oj.model.dto.questionsubmit.JudgeInfo;
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
