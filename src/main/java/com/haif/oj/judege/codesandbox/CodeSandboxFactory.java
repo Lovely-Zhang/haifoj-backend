@@ -2,7 +2,7 @@ package com.haif.oj.judege.codesandbox;
 
 import com.haif.oj.common.ErrorCode;
 import com.haif.oj.judege.codesandbox.impl.ExampleCodeSandbox;
-import com.haif.oj.judege.codesandbox.impl.RemoteCodeSanbox;
+import com.haif.oj.judege.codesandbox.impl.RemoteCodeSandbox;
 import com.haif.oj.judege.codesandbox.impl.ThirdPartyCodeSanbox;
 
 /**
@@ -15,7 +15,7 @@ public class CodeSandboxFactory {
             case "example":
                 return new ExampleCodeSandbox();
             case "remote":
-                return new RemoteCodeSanbox();
+                return new RemoteCodeSandbox();
             case "thirdParty":
                 return new ThirdPartyCodeSanbox();
             default:

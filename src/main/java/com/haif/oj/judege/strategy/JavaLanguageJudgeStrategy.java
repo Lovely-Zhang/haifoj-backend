@@ -1,9 +1,11 @@
 package com.haif.oj.judege.strategy;
 
 import cn.hutool.json.JSONUtil;
+import com.haif.oj.common.ErrorCode;
+import com.haif.oj.exception.ThrowUtils;
+import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.dto.question.JudgeCase;
 import com.haif.oj.model.dto.question.JudgeConfig;
-import com.haif.oj.judege.codesandbox.model.JudgeInfo;
 import com.haif.oj.model.entity.Question;
 import com.haif.oj.model.enums.JudgeInfoMessageEnum;
 
@@ -22,7 +24,9 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy {
     public JudgeInfo doJudge(JudgeContetxt judgeContetxt) {
         JudgeInfo judgeInfo = judgeContetxt.getJudgeInfo();
         Long memory = judgeInfo.getMemory();
+        ThrowUtils.throwIf(memory == null, ErrorCode.NOT_FOUND_ERROR);
         Long time = judgeInfo.getTime();
+        ThrowUtils.throwIf(time == null, ErrorCode.NOT_FOUND_ERROR);
         Question question = judgeContetxt.getQuestion();
         JudgeInfo judgeInfoResponse = new JudgeInfo();
         judgeInfoResponse.setMemory(memory);

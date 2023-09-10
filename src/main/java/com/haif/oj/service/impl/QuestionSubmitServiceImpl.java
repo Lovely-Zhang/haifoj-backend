@@ -98,11 +98,13 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         Long questionSubmitId = questionSubmit.getId();
         // 执行判题服务
         CompletableFuture.runAsync(() -> {
-            judgeService.doJudge(questionSubmitId);
+            QuestionSubmit doJudge = judgeService.doJudge(questionSubmitId);
+            if (doJudge.getStatus() == 2) {
+                // todo 如果运行成功通过，则把题目的通过数 +1
+                serviceById.setAcceptedNum(serviceById.getAcceptedNum() + 1);
+                questionService.updateById(serviceById);
+            }
         });
-        // todo 如果运行成功，则把题目的通过数 +1
-        serviceById.setAcceptedNum(serviceById.getAcceptedNum() + 1);
-        questionService.updateById(serviceById);
         return questionSubmitId;
     }
 

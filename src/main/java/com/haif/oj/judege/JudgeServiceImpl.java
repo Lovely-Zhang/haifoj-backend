@@ -78,6 +78,7 @@ public class JudgeServiceImpl implements JudgeService {
                 .language(language)
                 .inputList(inputList)
                 .build();
+        // 获取代码沙箱输出结果
         ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
         // 5）根据沙箱的执行结果，设置题目的判题状态和信息
         JudgeContetxt judgeContetxt = new JudgeContetxt();

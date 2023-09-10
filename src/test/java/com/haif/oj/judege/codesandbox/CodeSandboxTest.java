@@ -1,7 +1,7 @@
 package com.haif.oj.judege.codesandbox;
 
 import com.haif.oj.judege.codesandbox.impl.ExampleCodeSandbox;
-import com.haif.oj.judege.codesandbox.impl.RemoteCodeSanbox;
+import com.haif.oj.judege.codesandbox.impl.RemoteCodeSandbox;
 import com.haif.oj.judege.codesandbox.model.ExecuteCodeRequest;
 import com.haif.oj.judege.codesandbox.model.ExecuteCodeResponse;
 import com.haif.oj.model.enums.QuestionSubmitLanguageEnum;
@@ -29,7 +29,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = new ExampleCodeSandbox();
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<String> list = Arrays.asList("1,2", "3, 4");
+        List<String> list = Arrays.asList("1 2", "3 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder().code(code).language(language).inputList(list).build();
         ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
         Assertions.assertNotNull(executeCodeResponse);
@@ -40,10 +40,10 @@ class CodeSandboxTest {
      */
     @Test
     void executeCodeValue2() {
-        CodeSandbox codeSandbox = new RemoteCodeSanbox();
+        CodeSandbox codeSandbox = new RemoteCodeSandbox();
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<String> list = Arrays.asList("1,2", "3, 4");
+        List<String> list = Arrays.asList("1 2", "3 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
@@ -63,7 +63,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<String> list = Arrays.asList("1,2", "3, 4");
+        List<String> list = Arrays.asList("1 2", "3 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
@@ -81,7 +81,7 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
         String code = "init main(){}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<String> list = Arrays.asList("1,2", "3, 4");
+        List<String> list = Arrays.asList("1 2", "3 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
@@ -101,15 +101,22 @@ class CodeSandboxTest {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
         // 增强
         codeSandbox = new CodeSandboxProxy(codeSandbox);
-        String code = "init main(){}";
+        String code = "public class Main {\n" +
+                "    public static void main(String[] args) {\n" +
+                "        int a = Integer.parseInt(args[0]);\n" +
+                "        int b = Integer.parseInt(args[1]);\n" +
+                "        System.out.println(\"结果： \" + (a + b));\n" +
+                "    }\n" +
+                "}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<String> list = Arrays.asList("1,2", "3, 4");
+        List<String> list = Arrays.asList("1 2", "3 4");
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
                 .inputList(list)
                 .build();
         ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
+        System.out.println(executeCodeResponse);
         Assertions.assertNotNull(executeCodeResponse);
     }
 
